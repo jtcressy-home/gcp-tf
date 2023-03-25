@@ -11,8 +11,17 @@ resource "google_project_iam_member" "github-jtcressy-net-gcp-tf_owner" {
 
 resource "google_organization_iam_member" "github-jtcressy-net-gcp-tf_orgAdmin" {
   org_id = data.google_organization.jtcressy-net.org_id
-  # role   = "roles/resourcemanager.organizationAdmin"
-  role   = "roles/owner"
+  role   = "roles/resourcemanager.organizationAdmin"
+  member = "serviceAccount:${google_service_account.gha-gcp-tf.email}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "google_organization_iam_member" "github-jtcressy-net-gcp-tf_billingAdmin" {
+  org_id = data.google_organization.jtcressy-net.org_id
+  role   = "roles/billing.admin"
   member = "serviceAccount:${google_service_account.gha-gcp-tf.email}"
 
   lifecycle {
