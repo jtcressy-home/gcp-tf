@@ -1,0 +1,39 @@
+name: Terraform Manual
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: 'Which path to run against'
+        required: false
+        type: string
+        default: ''
+      action:
+        description: 'Terraform Action to Run'
+        required: true
+        type: choice
+        options:
+          - apply
+          - plan
+          - output
+      arguments:
+        description: 'Extra arguments for terraform action step'
+        type: string
+        default: ''
+        required: false
+      debug:
+        type: boolean
+        default: false
+        description: 'Enable extra debug jobs'
+        required: false
+
+permissions: write-all
+
+jobs:
+  terraform:
+    uses: dottid/actions-workflows/.github/workflows/terraform.yml@main
+    with:
+      path: ${{ github.event.inputs.path }}
+      action: ${{ github.event.inputs.action }}
+      arguments: ${{ github.event.inputs.arguments }}
+      debug: ${{ github.event.inputs.debug == 'true' }}
+    secrets: inherit

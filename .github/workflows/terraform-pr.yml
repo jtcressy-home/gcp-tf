@@ -1,0 +1,14 @@
+name: Terraform Pull Request
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions: write-all
+
+jobs:
+  terraform-plan:
+    uses: jtcressy-home/actions-workflows/.github/workflows/terraform.yml@main
+    with:
+      action: plan
+      debug: ${{ github.event.inputs.debug == 'true' }}
+    secrets: inherit
