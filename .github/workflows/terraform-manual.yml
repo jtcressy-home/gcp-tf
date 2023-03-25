@@ -15,8 +15,17 @@ on:
           - apply
           - plan
           - output
+      environment:
+        description: 'Run against a specific environment'
+        required: true
+        type: environment
       arguments:
         description: 'Extra arguments for terraform action step'
+        type: string
+        default: ''
+        required: false
+      init-arguments:
+        description: 'Extra arguments for terraform init step'
         type: string
         default: ''
         required: false
@@ -30,10 +39,12 @@ permissions: write-all
 
 jobs:
   terraform:
-    uses: dottid/actions-workflows/.github/workflows/terraform.yml@main
+    uses: jtcressy-home/actions-workflows/.github/workflows/terraform.yml@main
     with:
+      environment: ${{ github.event.inputs.environment }}
       path: ${{ github.event.inputs.path }}
       action: ${{ github.event.inputs.action }}
       arguments: ${{ github.event.inputs.arguments }}
+      init-arguments: ${{ github.event.inputs.arguments }}
       debug: ${{ github.event.inputs.debug == 'true' }}
     secrets: inherit
