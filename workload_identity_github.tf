@@ -23,7 +23,7 @@ module "gh_oidc" {
   sa_mapping = {
     "github-jtcressy-net-gcp-tf" = {
       sa_name   = google_service_account.gha-gcp-tf.name
-      attribute = "attribute.sub/repo:jtcressy-home/gcp-tf:ref:refs/heads/main"
+      attribute = "attribute.sub/repo:jtcressy-home/gcp-tf:environment:terraform"
     }
   }
 }
