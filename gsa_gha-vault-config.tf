@@ -13,6 +13,12 @@ resource "google_project_iam_member" "gha-vault-config_owner" {
   member  = "serviceAccount:${google_service_account.gha-vault-config.email}"
 }
 
+resource "google_project_iam_member" "gha-vault-config_storageAdmin" {
+  project = data.google_project.jtcressy-net.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.gha-vault-config.email}"
+}
+
 ## Service Account's Workload Identity Mappings
 
 resource "google_service_account_iam_member" "gha-vault-config_vault-config" {
