@@ -7,9 +7,9 @@ resource "google_service_account" "gha-tailnet-config" {
 
 ## Service Account's Permissions
 
-resource "google_project_iam_member" "gha-tailnet-config_objectViewer" {
+resource "google_project_iam_member" "gha-tailnet-config_storageAdmin" {
   project = data.google_project.jtcressy-net.project_id
-  role    = "roles/storage.objectViewer"
+  role    = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.gha-tailnet-config.email}"
 }
 
